@@ -871,8 +871,12 @@ class Contract
      * @param string|int $toBlock
      * @return array
      */
-    public function getEventLogs(string $eventName, $fromBlock = 'latest', $toBlock = 'latest')
+    public function getEventLogs(string $eventName, $topics, $fromBlock = 'latest', $toBlock = 'latest')
     {
+        if (!is_array($topics) || count(array_filter($topics, 'is_string')) !== count($topics)) {
+            throw new \Exception("topics must be an array of strings");
+        }
+
         //try to ensure block numbers are valid together
         if ($fromBlock !== 'latest') {
             if (!is_int($fromBlock) || $fromBlock < 1) {
@@ -922,7 +926,7 @@ class Contract
         $this->eth->getLogs([
             'fromBlock' => (is_int($fromBlock)) ? '0x' . dechex($fromBlock) : $fromBlock,
             'toBlock' => (is_int($toBlock)) ? '0x' . dechex($toBlock) : $toBlock,
-            'topics' => [$this->ethabi->encodeEventSignature($this->events[$eventName])],
+            'topics' => [$this->ethabi->encodeEventSignature($this->events[$eventName]), ...$topics],
             'address' => $this->toAddress
         ],
         function ($error, $result) use (&$eventLogData, $eventParameterTypes, $eventParameterNames, $eventIndexedParameterTypes, $eventIndexedParameterNames, $numEventIndexedParameterNames) {
