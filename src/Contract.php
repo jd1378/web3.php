@@ -864,7 +864,7 @@ class Contract
     }
 
     public function toTopic($data): string {
-        return Utils::sha3('0x'.str_pad(Utils::toHex($data), 64, '0', STR_PAD_LEFT));
+        return '0x'.str_pad(Utils::toHex($data), 64, '0', STR_PAD_LEFT);
     }
 
     /**
