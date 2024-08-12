@@ -864,7 +864,12 @@ class Contract
     }
 
     public function toTopic($data): string {
-        return '0x'.str_pad(Utils::toHex($data), 64, '0', STR_PAD_LEFT);
+        if (is_string($data) && strpos($data, '0x') === 0) {
+            $data = substr($data, 2);
+        } else {
+            $data = Utils::toHex($data);
+        }
+        return '0x'.str_pad($data, 64, '0', STR_PAD_LEFT);
     }
 
     /**
