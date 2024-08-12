@@ -877,16 +877,21 @@ class Contract
             throw new \Exception("topics must be an array of strings");
         }
 
+        $validBlockNames = ['pending', 'latest', 'safe', 'finalized', 'earliest'];
+
+        $isValidFromBlockName = in_array($fromBlock, $validBlockNames); 
+        $isValidToBlockName = in_array($toBlock, $validBlockNames); 
+
         //try to ensure block numbers are valid together
-        if ($fromBlock !== 'latest') {
+        if (!$isValidFromBlockName) {
             if (!is_int($fromBlock) || $fromBlock < 1) {
                 throw new InvalidArgumentException('Please make sure fromBlock is a valid block number');
-            } else if ($toBlock !== 'latest' && $fromBlock > $toBlock) {
+            } else if (!$isValidFromBlockName && !$isValidToBlockName && $fromBlock > $toBlock) {
                 throw new InvalidArgumentException('Please make sure fromBlock is equal or less than toBlock');
             }
         }
 
-        if ($toBlock !== 'latest') {
+        if (!$isValidToBlockName) {
             if (!is_int($toBlock) || $toBlock < 1) {
                 throw new InvalidArgumentException('Please make sure toBlock is a valid block number');
             } else if ($fromBlock === 'latest') {
