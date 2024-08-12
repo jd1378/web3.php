@@ -863,6 +863,10 @@ class Contract
         }
     }
 
+    public function toTopic($data): string {
+        return Utils::sha3('0x'.str_pad(Utils::toHex($data), 64, '0', STR_PAD_LEFT));
+    }
+
     /**
      * getEventLogs
      * 
@@ -873,9 +877,11 @@ class Contract
      */
     public function getEventLogs(string $eventName, $topics, $fromBlock = 'latest', $toBlock = 'latest')
     {
-        if (!is_array($topics) || count(array_filter($topics, 'is_string')) !== count($topics)) {
-            throw new \Exception("topics must be an array of strings");
+        if (!is_array($topics)) {
+            throw new \Exception("topics must be an array");
         }
+
+        $topics = array_map([self::class,'toTopic'], $topics);
 
         $validBlockNames = ['pending', 'latest', 'finalized', 'earliest'];
 
