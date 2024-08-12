@@ -877,7 +877,7 @@ class Contract
             throw new \Exception("topics must be an array of strings");
         }
 
-        $validBlockNames = ['pending', 'latest', 'safe', 'finalized', 'earliest'];
+        $validBlockNames = ['pending', 'latest', 'finalized', 'earliest'];
 
         $isValidFromBlockName = in_array($fromBlock, $validBlockNames); 
         $isValidToBlockName = in_array($toBlock, $validBlockNames); 
