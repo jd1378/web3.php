@@ -925,7 +925,7 @@ class Contract
             'topics' => [$this->ethabi->encodeEventSignature($this->events[$eventName])],
             'address' => $this->toAddress
         ],
-        function ($error, $result) use (&$eventLogData, $eventParameterTypes, $eventParameterNames, $eventIndexedParameterTypes, $eventIndexedParameterNames) {
+        function ($error, $result) use (&$eventLogData, $eventParameterTypes, $eventParameterNames, $eventIndexedParameterTypes, $eventIndexedParameterNames, $numEventIndexedParameterNames) {
             if ($error !== null) {
                 throw new RuntimeException($error->getMessage());
             }
