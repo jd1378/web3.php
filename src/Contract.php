@@ -863,7 +863,8 @@ class Contract
         }
     }
 
-    public function toTopic($data): string {
+    public function toTopic($data): string | null {
+        if (is_null($data)) return $data;
         if (is_string($data) && strpos($data, '0x') === 0) {
             $data = substr($data, 2);
         } else {
@@ -880,7 +881,7 @@ class Contract
      * @param string|int $toBlock
      * @return array
      */
-    public function getEventLogs(string $eventName, $topics, $fromBlock = 'latest', $toBlock = 'latest')
+    public function getEventLogs(string $eventName, $topics, $fromBlock = 'finalized', $toBlock = 'finalized')
     {
         if (!is_array($topics)) {
             throw new \Exception("topics must be an array");
