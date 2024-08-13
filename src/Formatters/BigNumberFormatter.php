@@ -21,7 +21,7 @@ class BigNumberFormatter implements IFormatter
      * format
      * 
      * @param mixed $value
-     * @return string
+     * @return BigNumber
      */
     public static function format($value)
     {

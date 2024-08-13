@@ -4,7 +4,7 @@ namespace Test\Unit;
 
 use RuntimeException;
 use Test\TestCase;
-use phpseclib\Math\BigInteger as BigNumber;
+use Web3\BigNumber;
 
 class NetBatchTest extends TestCase
 {

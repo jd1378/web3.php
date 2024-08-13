@@ -3,8 +3,8 @@
 namespace Test\Unit;
 
 use Test\TestCase;
-use phpseclib\Math\BigInteger as BigNumber;
 use Web3\Formatters\BigNumberFormatter;
+use Web3\BigNumber;
 
 class BigNumberFormatterTest extends TestCase
 {
