@@ -889,28 +889,6 @@ class Contract
 
         $topics = array_map([self::class,'toTopic'], $topics);
 
-        $validBlockNames = ['pending', 'latest', 'finalized', 'earliest'];
-
-        $isValidFromBlockName = in_array($fromBlock, $validBlockNames); 
-        $isValidToBlockName = in_array($toBlock, $validBlockNames); 
-
-        //try to ensure block numbers are valid together
-        if (!$isValidFromBlockName) {
-            if (!is_int($fromBlock) || $fromBlock < 1) {
-                throw new InvalidArgumentException('Please make sure fromBlock is a valid block number');
-            } else if (!$isValidFromBlockName && !$isValidToBlockName && $fromBlock > $toBlock) {
-                throw new InvalidArgumentException('Please make sure fromBlock is equal or less than toBlock');
-            }
-        }
-
-        if (!$isValidToBlockName) {
-            if (!is_int($toBlock) || $toBlock < 1) {
-                throw new InvalidArgumentException('Please make sure toBlock is a valid block number');
-            } else if ($fromBlock === 'latest') {
-                throw new InvalidArgumentException('Please make sure toBlock is equal or greater than fromBlock');
-            }
-        }
-
         $eventLogData = [];
 
         //ensure the event actually exists before trying to filter for it
